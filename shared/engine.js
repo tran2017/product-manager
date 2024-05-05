@@ -1,7 +1,7 @@
 const commonValues = {
   perPage: 10,
-  // JWT_KEY: process.env.JWT_KEY,
-  JWT_KEY: "top_secret_token_2023",
+  JWT_KEY: process.env.JWT_KEY,
+  // JWT_KEY: "top_secret_token_2023",
 };
 
 const encryptedLetterLibrary = [
