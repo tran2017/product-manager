@@ -98,7 +98,7 @@ const signin = async (req, res, next) => {
   let token;
   try {
     // token = jwt.sign({ userId: existingUser.id, email: existingUser.email }, commonValues.JWT_KEY, { expiresIn: "1h" });
-      token = jwt.sign({ userId: existingUser.id, email: existingUser.email }, process.env.JWT_KEY, { expiresIn: "1h" });
+    token = jwt.sign({ userId: existingUser.id, email: existingUser.email }, process.env.JWT_KEY, { expiresIn: "1h" });
   } catch (error) {
     return next(new HttpError("Invalid account, please try again", 500));
   }
@@ -138,12 +138,12 @@ const getAllUsers = async (req, res, next) => {
   let allUsersConverter;
   try {
     let allUsers = await user.find().exec();
-    allUsersConverter = allUsers.map((x) => x.toObject({ getters: true }));
+    allUsersConverter = allUsers.map((x) => ({ ComputerId: x.pcId, Username: x.email }));
   } catch (error) {
     return next(new HttpError(error, 404));
   }
 
-  res.status(200).json({ allUsersConverter: allUsersConverter });
+  res.status(200).json(allUsersConverter);
 };
 
 exports.signin = signin;
